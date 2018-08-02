@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
+import {NgxMsgConfigService, NgxMsgPosition, NgxMsgService} from "ngx-msg";
+
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  title = 'txt-webeditor-client';
+  title: string = "Редактор текстовых файлов";
+  constructor(private msgService: NgxMsgService, private configService: NgxMsgConfigService) {
+    configService.position = NgxMsgPosition.TopRight;
+    configService.visibleTime = 3000;
+    configService.closeOnClick = false;
+  };
 }

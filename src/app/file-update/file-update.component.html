@@ -1,0 +1,13 @@
+<mat-card *ngIf="fileInfo!==undefined" class="my-full-width">
+  <form class="my-form" novalidate (ngSubmit)="onSubmit(fileInfo)">
+    <mat-form-field class="my-full-width">
+      <textarea #content="ngModel" matInput name="content" placeholder="Текст" matAutosizeMinRows=3 matAutosizeMaxRows=8
+                [(ngModel)]="fileInfo.content" required></textarea>
+      <input type="hidden" [(ngModel)]="fileInfo.name" name="name"/>
+    </mat-form-field>
+    <div class="button-row">
+      <button [disabled]="content.invalid" color="primary" mat-raised-button type="submit">Обновить</button>
+      <button color="accent" mat-raised-button (click)="proceed()">Скачать</button>
+    </div>
+  </form>
+</mat-card>
