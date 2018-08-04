@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FileInfo } from './file-info.model';
 
-const UPDATE_URL = 'http://localhost:8080/webeditor/files/update';
-const GET_HISTORY_URL = 'http://localhost:8080/webeditor/files/getFileInfoHistory';
-const DOWNLOAD_URL = 'http://localhost:8080/webeditor/files/download';
+const UPDATE_URL = 'files/update';
+const GET_HISTORY_URL = 'files/getFileInfoHistory';
+const DOWNLOAD_URL = 'files/download';
 
 
 @Injectable()

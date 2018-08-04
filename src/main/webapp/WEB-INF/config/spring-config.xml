@@ -5,10 +5,16 @@
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
+    <mvc:resources mapping="/**" location="classpath:/static/"/>
     <mvc:annotation-driven/>
     <context:component-scan base-package="home.flast1k.system"/>
-    <mvc:view-controller path="/" view-name="editor"/>
-    <jpa:repositories base-package="home.flast1k.system.repository" />
+    <jpa:repositories base-package="home.flast1k.system.repository"/>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".html"/>
+    </bean>
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
