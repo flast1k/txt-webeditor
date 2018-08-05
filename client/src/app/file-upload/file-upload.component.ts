@@ -3,7 +3,7 @@ import { TdFileService, IUploadOptions } from '@covalent/core/file';
 import {NgxMsgLevel, NgxMsgService} from 'ngx-msg';
 import {FileInfo} from "../shared/file-info/file-info.model";
 
-const URL = 'http://localhost:8080/webeditor/files/upload';
+const URL = 'files/upload';
 
 @Component({
   selector: 'app-file-upload',
