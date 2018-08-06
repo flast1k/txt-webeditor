@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS fileinfo (
+  id INT AUTO_INCREMENT PRIMARY KEY ,
+  name TEXT,
+  content TEXT
+);
