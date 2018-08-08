@@ -28,10 +28,8 @@ nbdist/
 /out-tsc
 
 # dependencies
-/node
 /client/node_modules
-/node_modules
-node/
+/client/node/
 
 # IDEs and editors
 /.idea
