@@ -21,5 +21,13 @@
         <property name="maxUploadSize" value="1048576"/>
     </bean>
 
+    <bean id="applicationPropertiesPlaceholder"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:profiles/spring.profile.properties</value>
+            </list>
+        </property>
+    </bean>
 
 </beans>

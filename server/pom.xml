@@ -111,6 +111,11 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                            <workingDirectory>${client.directory}</workingDirectory>
+                        </configuration>
+                        <phase>generate-resources</phase>
                     </execution>
                     <execution>
                         <id>npm-build</id>
@@ -125,17 +130,25 @@
                 </executions>
             </plugin>
         </plugins>
-
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
     <profiles>
         <profile>
             <id>prod</id>
+            <properties>
+                <hibernate.dialect>org.hibernate.dialect.PostgreSQL95Dialect</hibernate.dialect>
+                <datasource.driver.classname>org.postgresql.Driver</datasource.driver.classname>
+                <datasource.url>jdbc:postgresql://localhost:5432/testdb</datasource.url>
+                <datasource.username>testrole</datasource.username>
+                <datasource.password>testrole</datasource.password>
+            </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>spring.profiles.active</name>
-                    <value>prod</value>
-                </property>
             </activation>
             <dependencies>
                 <dependency>
@@ -147,6 +160,13 @@
         </profile>
         <profile>
             <id>dev</id>
+            <properties>
+                <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+                <datasource.driver.classname>org.h2.Driver</datasource.driver.classname>
+                <datasource.url>jdbc:h2:file:./testdb</datasource.url>
+                <datasource.username>sa</datasource.username>
+                <datasource.password></datasource.password>
+            </properties>
             <activation>
                 <property>
                     <name>spring.profiles.active</name>

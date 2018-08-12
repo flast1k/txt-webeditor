@@ -16,6 +16,14 @@
         <property name="changeLog" value="classpath:db-migrations/changelog.xml" />
     </bean>
 
+    <bean name="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${datasource.driver.classname}"/>
+        <property name="url" value="${datasource.url}"/>
+        <property name="username" value="${datasource.username}"/>
+        <property name="password" value="${datasource.password}"/>
+    </bean>
+
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -27,4 +35,5 @@
         </property>
         <property name="packagesToScan" value="home.flast1k.system.model"/>
     </bean>
+
 </beans>
