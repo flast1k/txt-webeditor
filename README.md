@@ -1,4 +1,5 @@
-#Профили сборки проекта:
+# Профили сборки проекта:
+
 **Production**
 
 Используется БД postgresql + клиент собирается с флагом ```--prod```.
@@ -16,6 +17,3 @@ mvn clean package -Pdev
 ```
 mvn clean package jetty:run -Pdev -Pjetty
 ```
-
-
- 
