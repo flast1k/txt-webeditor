@@ -123,7 +123,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run-script build</arguments>
+                            <arguments>run-script ${client.build.script}</arguments>
                             <workingDirectory>${client.directory}</workingDirectory>
                         </configuration>
                     </execution>
@@ -141,6 +141,7 @@
         <profile>
             <id>prod</id>
             <properties>
+                <client.build.script>prod</client.build.script>
                 <hibernate.dialect>org.hibernate.dialect.PostgreSQL95Dialect</hibernate.dialect>
                 <datasource.driver.classname>org.postgresql.Driver</datasource.driver.classname>
                 <datasource.url>jdbc:postgresql://localhost:5432/testdb</datasource.url>
@@ -161,6 +162,7 @@
         <profile>
             <id>dev</id>
             <properties>
+                <client.build.script>build</client.build.script>
                 <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
                 <datasource.driver.classname>org.h2.Driver</datasource.driver.classname>
                 <datasource.url>jdbc:h2:file:./testdb</datasource.url>
