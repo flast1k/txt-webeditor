@@ -1,15 +1,40 @@
-<mat-card>
-  <mat-card-content>
-    <td-file-upload #fileUpload [(ngModel)]="file" defaultColor="accent" activeColor="warn" cancelColor="primary"
-                    (upload)="uploadEvent($event)" accept=".txt" [disabled]="disabled">
-      <mat-icon>file_upload</mat-icon>
-      <span>{{ file?.name }}</span>
-      <ng-template td-file-input-label>
-        <mat-icon>attach_file</mat-icon>
-        <span>Выберите файл</span>
-      </ng-template>
-    </td-file-upload>
-  </mat-card-content>
-</mat-card>
+<mat-vertical-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Выберите кодировку документа</ng-template>
+            <mat-form-field>
+                <mat-select placeholder="Выберите кодировку документа" [(ngModel)]="selectedCharset" formControlName="selectCtrl" required>
+                    <mat-option *ngFor="let charset of charsets" [value]="charset.value">
+                        {{charset.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Далее</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Загрузите или создайте новый документ</ng-template>
+        <mat-list>
+            <mat-list-item>
+                <td-file-upload #fileUpload [(ngModel)]="file" defaultColor="accent" activeColor="warn"
+                                cancelColor="primary"
+                                (upload)="uploadEvent($event)" [disabled]="disabled">
+                    <mat-icon>file_upload</mat-icon>
+                    <span>{{ file?.name }}</span>
+                    <ng-template td-file-input-label>
+                        <mat-icon>attach_file</mat-icon>
+                        <span>Выберите файл</span>
+                    </ng-template>
+                </td-file-upload>
+            </mat-list-item>
+            <mat-list-item>или</mat-list-item>
+            <mat-list-item>
+                <button color="accent" mat-raised-button (click)="createNewFileInfo()">Создайте новый документ</button>
+            </mat-list-item>
+        </mat-list>
+    </mat-step>
+</mat-vertical-stepper>
 <app-file-update [fileInfo]="fileInfo"></app-file-update>
 

@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface FileInfoService {
 
-    void save(FileInfo user);
+    FileInfo save(FileInfo user);
 
     List<FileInfo> findAll();
+
+    FileInfo findById(int id);
 }

@@ -3,19 +3,26 @@ import { FileInfoService } from '../shared/file-info/file-info.service';
 import { FileInfo } from "../shared/file-info/file-info.model";
 
 @Component({
-  selector: 'app-file-info-list',
-  templateUrl: './file-info-list.component.html',
-  styleUrls: ['./file-info-list.component.css']
+    selector: 'app-file-info-list',
+    templateUrl: './file-info-list.component.html',
+    styleUrls: ['./file-info-list.component.css']
 })
 export class FileInfoListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'content'];
-  filesInfo: Array<FileInfo>;
-  constructor(private fileInfoService: FileInfoService) { }
+    displayedColumns: string[] = ['name', 'content'];
+    filesInfo: Array<FileInfo>;
+    downloadLink: string = "files/download";
 
-  ngOnInit() {
-    this.fileInfoService.getAll().subscribe(data => {
-      this.filesInfo = data;
-    });
-  }
+    constructor(private fileInfoService: FileInfoService) {
+    }
+
+    ngOnInit() {
+        this.fileInfoService.getAll().subscribe(data => {
+            this.filesInfo = data;
+        });
+    }
+
+    generateLinkToFile(id:number){
+        return `${this.downloadLink}/${id}`
+    }
 
 }

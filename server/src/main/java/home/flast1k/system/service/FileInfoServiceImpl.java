@@ -15,13 +15,18 @@ public class FileInfoServiceImpl implements FileInfoService {
     private FileInfoRepository fileInfoRepository;
 
     @Transactional
-    public void save(FileInfo user) {
-        fileInfoRepository.save(user);
+    public FileInfo save(FileInfo user) {
+        return fileInfoRepository.save(user);
     }
 
     @Transactional(readOnly = true)
     public List<FileInfo> findAll() {
         return fileInfoRepository.findAll();
+    }
+
+    @Override
+    public FileInfo findById(int id) {
+        return fileInfoRepository.findById(id);
     }
 
 

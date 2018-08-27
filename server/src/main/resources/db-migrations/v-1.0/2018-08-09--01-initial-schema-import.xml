@@ -10,9 +10,11 @@
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="TEXT">
+            <column name="name" type="VARCHAR">
             </column>
-            <column name="content" type="TEXT">
+            <column name="binary_source" type="VARBINARY">
+            </column>
+            <column name="charset" type="VARCHAR">
             </column>
         </createTable>
     </changeSet>

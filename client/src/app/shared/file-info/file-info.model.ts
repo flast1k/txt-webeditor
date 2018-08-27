@@ -1,4 +1,13 @@
 export class FileInfo {
-  name:string;
-  content:string;
+    id: number;
+    name: string;
+    content: string;
+    charset: string;
+
+    constructor() {
+        this.content = '';
+        this.name = '';
+        this.charset = '';
+    }
+
 }
