@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FileUpdateComponent} from './file-update.component';
+import { FileUpdateComponent } from './file-update.component';
 
 describe('FileUpdateComponent', () => {
     let component: FileUpdateComponent;

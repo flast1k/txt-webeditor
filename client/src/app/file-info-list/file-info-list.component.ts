@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {FileInfoService} from '../shared/file-info/file-info.service';
-import {FileInfo} from "../shared/file-info/file-info.model";
+import { Component, OnInit } from '@angular/core';
+import { FileInfoService } from '../shared/file-info/file-info.service';
+import { FileInfo } from "../shared/file-info/file-info.model";
 
 const DOWNLOAD_LINK = "files/download";
 

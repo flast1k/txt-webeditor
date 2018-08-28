@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {NgxMsgConfigService, NgxMsgPosition, NgxMsgService} from "ngx-msg";
+import { Component } from '@angular/core';
+import { NgxMsgConfigService, NgxMsgPosition, NgxMsgService } from "ngx-msg";
 import 'codemirror/mode/markdown/markdown';
 
 

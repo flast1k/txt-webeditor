@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FileInfoListComponent} from './file-info-list.component';
+import { FileInfoListComponent } from './file-info-list.component';
 
 describe('FileInfoListComponent', () => {
     let component: FileInfoListComponent;

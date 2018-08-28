@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {IUploadOptions, TdFileService} from '@covalent/core/file';
-import {NgxMsgLevel, NgxMsgService} from 'ngx-msg';
-import {FileInfo} from "../shared/file-info/file-info.model";
-import {Charset} from "../shared/charset";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { IUploadOptions, TdFileService } from '@covalent/core/file';
+import { NgxMsgLevel, NgxMsgService } from 'ngx-msg';
+import { FileInfo } from "../shared/file-info/file-info.model";
+import { Charset } from "../shared/charset";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 const UPLOAD_URL = 'files/upload';
 const NEW_FILE_NAME = 'Newfile.txt';

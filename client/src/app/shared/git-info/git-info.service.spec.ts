@@ -1,6 +1,6 @@
-import {inject, TestBed} from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
-import {GitInfoService} from './git-info.service';
+import { GitInfoService } from './git-info.service';
 
 describe('GitInfoService', () => {
     beforeEach(() => {

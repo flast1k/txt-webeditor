@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
-import {FileInfo} from "../shared/file-info/file-info.model";
-import {FileInfoService} from "../shared/file-info/file-info.service";
-import {NgxMsgLevel, NgxMsgService} from "ngx-msg";
-import {saveAs} from 'file-saver/FileSaver';
+import { Component, Input } from '@angular/core';
+import { FileInfo } from "../shared/file-info/file-info.model";
+import { FileInfoService } from "../shared/file-info/file-info.service";
+import { NgxMsgLevel, NgxMsgService } from "ngx-msg";
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
     selector: 'app-file-update',

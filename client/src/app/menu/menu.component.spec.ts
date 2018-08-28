@@ -1,6 +1,6 @@
-import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MenuComponent} from './menu.component';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MenuComponent } from './menu.component';
 
 describe('MenuComponent', () => {
     let component: MenuComponent;

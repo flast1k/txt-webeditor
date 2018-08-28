@@ -1,6 +1,6 @@
-import {inject, TestBed} from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
-import {FileInfoService} from './file-info.service';
+import { FileInfoService } from './file-info.service';
 
 describe('FileInfoService', () => {
     beforeEach(() => {
