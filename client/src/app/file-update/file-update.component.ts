@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { FileInfo } from "../shared/file-info/file-info.model";
-import { FileInfoService } from "../shared/file-info/file-info.service";
-import { NgxMsgLevel, NgxMsgService } from "ngx-msg";
-import { saveAs } from 'file-saver/FileSaver';
+import {Component, Input} from '@angular/core';
+import {FileInfo} from "../shared/file-info/file-info.model";
+import {FileInfoService} from "../shared/file-info/file-info.service";
+import {NgxMsgLevel, NgxMsgService} from "ngx-msg";
+import {saveAs} from 'file-saver/FileSaver';
 
 @Component({
     selector: 'app-file-update',
@@ -13,11 +13,11 @@ export class FileUpdateComponent {
     @Input()
     fileInfo: FileInfo;
 
-    static getFileNameFromHeader(header:string): string {
+    static getFileNameFromHeader(header: string): string {
         let filename = '';
         let pattern = 'filename="(.*?)"';
         let match = header.match(pattern);
-        if (match.length > 0){
+        if (match.length > 0) {
             filename = match[1];
         }
         return filename;

@@ -3,7 +3,8 @@
         <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Выберите кодировку документа</ng-template>
             <mat-form-field>
-                <mat-select placeholder="Выберите кодировку документа" [(ngModel)]="selectedCharset" formControlName="selectCtrl" required>
+                <mat-select placeholder="Выберите кодировку документа" [(ngModel)]="selectedCharset"
+                            formControlName="selectCtrl" required>
                     <mat-option *ngFor="let charset of charsets" [value]="charset.value">
                         {{charset.viewValue}}
                     </mat-option>

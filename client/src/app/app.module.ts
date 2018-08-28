@@ -1,30 +1,34 @@
 import {
     MatButtonModule,
     MatCardModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatTableModule,
     MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
     MatSelectModule,
-    MatMenuModule, MatSidenavModule, MatStepperModule, MatListModule
+    MatSidenavModule,
+    MatStepperModule,
+    MatTableModule,
+    MatToolbarModule
 } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { CovalentFileModule } from '@covalent/core/file';
-import { NgxMsgModule } from 'ngx-msg';
-import { Routes, RouterModule } from '@angular/router';
-import { FileInfoService } from './shared/file-info/file-info.service';
-import { FileInfo } from "./shared/file-info/file-info.model";
-import { AppComponent } from './app.component';
-import { FileInfoListComponent } from './file-info-list/file-info-list.component';
-import { FileUploadComponent } from './file-upload/file-upload.component';
-import { FileUpdateComponent } from './file-update/file-update.component';
-import { MenuComponent } from './menu/menu.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { FooterComponent } from './footer/footer.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {CovalentFileModule} from '@covalent/core/file';
+import {NgxMsgModule} from 'ngx-msg';
+import {RouterModule, Routes} from '@angular/router';
+import {FileInfoService} from './shared/file-info/file-info.service';
+import {GitInfoService} from './shared/git-info/git-info.service';
+import {FileInfo} from "./shared/file-info/file-info.model";
+import {AppComponent} from './app.component';
+import {FileInfoListComponent} from './file-info-list/file-info-list.component';
+import {FileUploadComponent} from './file-upload/file-upload.component';
+import {FileUpdateComponent} from './file-update/file-update.component';
+import {MenuComponent} from './menu/menu.component';
+import {LayoutModule} from '@angular/cdk/layout';
+import {CodemirrorModule} from '@ctrl/ngx-codemirror';
+import {FooterComponent} from './footer/footer.component';
 
 const appRoutes: Routes = [
     {path: '', component: FileUploadComponent},
@@ -58,7 +62,7 @@ const appRoutes: Routes = [
         ReactiveFormsModule,
         CodemirrorModule
     ],
-    providers: [FileInfoService, FileInfo],
+    providers: [FileInfoService, FileInfo, GitInfoService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

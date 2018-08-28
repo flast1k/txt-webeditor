@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { FileInfo } from './file-info.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {FileInfo} from './file-info.model';
 
 const UPDATE_URL = 'files/update';
 const GET_HISTORY_URL = 'files/getFileInfoHistory';
@@ -22,6 +22,6 @@ export class FileInfoService {
     }
 
     download(fileInfo: FileInfo) {
-        return this.http.post(DOWNLOAD_URL, fileInfo, {  responseType: 'blob', observe: 'response' });
+        return this.http.post(DOWNLOAD_URL, fileInfo, {responseType: 'blob', observe: 'response'});
     }
 }

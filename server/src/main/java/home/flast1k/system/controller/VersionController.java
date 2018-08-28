@@ -11,15 +11,17 @@ import java.io.InputStreamReader;
 
 @RestController
 public class VersionController {
+
+    private static final String GIT_PROPERTIES = "git.properties";
+
     @GetMapping("/version")
     public String versionInformation() {
         return readGitProperties();
     }
 
-
     private String readGitProperties() {
         ClassLoader classLoader = getClass().getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream("git.properties");
+        InputStream inputStream = classLoader.getResourceAsStream(GIT_PROPERTIES);
         try {
             return readFromInputStream(inputStream);
         } catch (IOException e) {
@@ -28,8 +30,7 @@ public class VersionController {
         }
     }
 
-    private String readFromInputStream(InputStream inputStream)
-            throws IOException {
+    private String readFromInputStream(InputStream inputStream) throws IOException {
         StringBuilder resultStringBuilder = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;

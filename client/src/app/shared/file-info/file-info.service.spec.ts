@@ -1,15 +1,15 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
-import { FileInfoService } from './file-info.service';
+import {FileInfoService} from './file-info.service';
 
 describe('FileInfoService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [FileInfoService]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [FileInfoService]
+        });
     });
-  });
 
-  it('should be created', inject([FileInfoService], (service: FileInfoService) => {
-    expect(service).toBeTruthy();
-  }));
+    it('should be created', inject([FileInfoService], (service: FileInfoService) => {
+        expect(service).toBeTruthy();
+    }));
 });

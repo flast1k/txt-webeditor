@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { TdFileService, IUploadOptions } from '@covalent/core/file';
-import { NgxMsgLevel, NgxMsgService } from 'ngx-msg';
-import { FileInfo } from "../shared/file-info/file-info.model";
-import { Charset } from "../shared/charset";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {IUploadOptions, TdFileService} from '@covalent/core/file';
+import {NgxMsgLevel, NgxMsgService} from 'ngx-msg';
+import {FileInfo} from "../shared/file-info/file-info.model";
+import {Charset} from "../shared/charset";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
-const URL = 'files/upload';
+const UPLOAD_URL = 'files/upload';
 const NEW_FILE_NAME = 'Newfile.txt';
 
 @Component({
@@ -39,7 +39,7 @@ export class FileUploadComponent implements OnInit {
         this.formData.append('charset', this.selectedCharset);
         this.disabled = true;
         let options: IUploadOptions = {
-            url: URL,
+            url: UPLOAD_URL,
             method: 'post',
             formData: this.formData,
         };

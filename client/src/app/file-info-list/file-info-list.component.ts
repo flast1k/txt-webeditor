@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FileInfoService } from '../shared/file-info/file-info.service';
-import { FileInfo } from "../shared/file-info/file-info.model";
+import {Component, OnInit} from '@angular/core';
+import {FileInfoService} from '../shared/file-info/file-info.service';
+import {FileInfo} from "../shared/file-info/file-info.model";
+
+const DOWNLOAD_LINK = "files/download";
 
 @Component({
     selector: 'app-file-info-list',
@@ -10,7 +12,6 @@ import { FileInfo } from "../shared/file-info/file-info.model";
 export class FileInfoListComponent implements OnInit {
     displayedColumns: string[] = ['name', 'content'];
     filesInfo: Array<FileInfo>;
-    downloadLink: string = "files/download";
 
     constructor(private fileInfoService: FileInfoService) {
     }
@@ -21,8 +22,8 @@ export class FileInfoListComponent implements OnInit {
         });
     }
 
-    generateLinkToFile(id:number){
-        return `${this.downloadLink}/${id}`
+    generateLinkToFile(id: number) {
+        return `${DOWNLOAD_LINK}/${id}`
     }
 
 }
