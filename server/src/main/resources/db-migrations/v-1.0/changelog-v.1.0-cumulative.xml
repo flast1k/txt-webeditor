@@ -6,4 +6,6 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <include file="2018-08-09--01-initial-schema-import.xml" relativeToChangelogFile="true"/>
+    <include file="2018-08-29--01-delete-content-add-binarysource-and-charset.xml" relativeToChangelogFile="true"/>
+    <include file="2018-09-06--01-create-audit-db.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

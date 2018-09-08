@@ -1,17 +1,33 @@
 <mat-card *ngIf="fileInfo!==undefined">
-    <form class="my-form" novalidate (ngSubmit)="onSubmit(fileInfo)">
+    <form novalidate (ngSubmit)="onSubmit(fileInfo)">
+        <p>
+            <mat-form-field>
+                <input matInput #name="ngModel" placeholder="Имя файла" [(ngModel)]="fileInfo.name" name="name"
+                       required/>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <mat-select #charset="ngModel" placeholder="Выберите кодировку документа" [(ngModel)]="fileInfo.charset"
+                            name="charset" required>
+                    <mat-option *ngFor="let charset of charsets" [value]="charset.value">
+                        {{charset.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
         <ngx-codemirror #content="ngModel" [(ngModel)]="fileInfo.content" name="content" required [options]="{
                 lineNumbers: true,
                 theme: 'default',
                 mode: 'markdown'
               }"></ngx-codemirror>
-        <input type="hidden" [(ngModel)]="fileInfo.name" name="name"/>
-        <input type="hidden" [(ngModel)]="fileInfo.charset" name="charset"/>
         <input type="hidden" [(ngModel)]="fileInfo.id" name="id"/>
         <br>
         <div class="button-row">
-            <button type="submit" [disabled]="content.invalid" color="primary" mat-raised-button>Обновить в БД</button>
-            <button type="button" color="accent" mat-raised-button (click)="proceed(fileInfo)">Скачать</button>
+            <button #submit type="submit" [disabled]="content.invalid || name.invalid || charset.invalid" color="primary"
+                    mat-raised-button>Обновить в БД
+            </button>
+            <button type="button" [disabled]="submit.disabled" color="accent" mat-raised-button (click)="proceed(fileInfo)">Скачать</button>
         </div>
     </form>
 </mat-card>

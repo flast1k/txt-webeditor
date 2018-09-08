@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { GitInfoService } from "../shared/git-info/git-info.service";
+import { HttpClient } from '@angular/common/http';
+import { GitInfoService } from '../shared/git-info/git-info.service';
 
 @Component({
     selector: 'app-footer',

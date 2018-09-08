@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="flast1k" id="2018-08-29--01-delete-content-add-binarysource-and-charset">
+        <dropColumn tableName="fileinfo" columnName="content"/>
+        <addColumn tableName="fileinfo">
+            <column name="binary_source" type="VARBINARY"/>
+        </addColumn>
+        <addColumn tableName="fileinfo">
+            <column name="charset" type="VARCHAR"/>
+        </addColumn>
+        <delete tableName="fileinfo">
+        </delete>
+        <rollback>
+            <addColumn tableName="fileinfo">
+                <column name="content" type="TEXT"/>
+            </addColumn>
+            <dropColumn tableName="fileinfo" columnName="binary_source"/>
+            <dropColumn tableName="fileinfo" columnName="charset"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

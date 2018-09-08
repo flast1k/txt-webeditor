@@ -1,7 +1,10 @@
 package home.flast1k.system.controller;
 
 import home.flast1k.system.exception.FileNotFoundException;
+import home.flast1k.system.helper.AuditFactory;
+import home.flast1k.system.helper.Utilities;
 import home.flast1k.system.model.FileInfo;
+import home.flast1k.system.service.AuditService;
 import home.flast1k.system.service.FileInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -24,36 +27,37 @@ import java.util.List;
 @RequestMapping(value = "/files")
 public class FileController {
 
-    private static final String CHARSET = "charset";
     private static final String APPLICATION_OCTET_STREAM = "application/octet-stream";
     @Autowired
     private FileInfoService fileInfoService;
+    @Autowired
+    private AuditService auditService;
 
     @PostMapping(value = "/upload")
-    public @ResponseBody
-    FileInfo upload(MultipartHttpServletRequest request) throws FileNotFoundException, IOException {
+    public @ResponseBody FileInfo upload(MultipartHttpServletRequest request) throws FileNotFoundException, IOException {
         Iterator<String> itr = request.getFileNames();
         if (!itr.hasNext()) {
             throw new FileNotFoundException();
         }
-        String charset = request.getParameter(CHARSET);
         MultipartFile mpf = request.getFile(itr.next());
+        Charset charset = Utilities.detectCharset(mpf.getInputStream());
         String originalFilename = mpf.getOriginalFilename();
-        String content = new String(mpf.getBytes(), Charset.forName(charset));
-        return fileInfoService.save(new FileInfo(originalFilename, content, charset));
+        String content = new String(mpf.getBytes(), charset);
+        FileInfo fileInfo = fileInfoService.save(new FileInfo(originalFilename, content, charset.toString()));
+        auditService.save(AuditFactory.createAuditForUploadAction(fileInfo));
+        return fileInfo;
     }
 
     @PostMapping(value = "/update")
-    public @ResponseBody
-    FileInfo update(@RequestBody FileInfo fileInfo) {
+    public @ResponseBody FileInfo update(@RequestBody FileInfo fileInfo) {
         fileInfo.updateBinarySource();
-        fileInfoService.save(fileInfo);
+        FileInfo updatedFileInfo = fileInfoService.save(fileInfo);
+        auditService.save(AuditFactory.createAuditForUpdateAction(updatedFileInfo));
         return fileInfo;
     }
 
     @GetMapping(value = "/getFileInfoHistory")
-    public @ResponseBody
-    List<FileInfo> getFileInfo() {
+    public @ResponseBody List<FileInfo> getFileInfo() {
         return fileInfoService.findAll();
     }
 
@@ -66,6 +70,7 @@ public class FileController {
     @PostMapping("/download")
     public ResponseEntity<Resource> download(@RequestBody FileInfo fileInfo) {
         fileInfo.updateBinarySource();
+        auditService.save(AuditFactory.createAuditForDownloadAction());
         return this.ConvertFileInfoToResourceEntity(fileInfo);
     }
 

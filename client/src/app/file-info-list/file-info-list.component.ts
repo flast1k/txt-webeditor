@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FileInfoService } from '../shared/file-info/file-info.service';
-import { FileInfo } from "../shared/file-info/file-info.model";
+import { FileInfo } from '../shared/file-info/file-info.model';
 
-const DOWNLOAD_LINK = "files/download";
+const DOWNLOAD_LINK = 'files/download';
 
 @Component({
     selector: 'app-file-info-list',
@@ -23,7 +23,7 @@ export class FileInfoListComponent implements OnInit {
     }
 
     generateLinkToFile(id: number) {
-        return `${DOWNLOAD_LINK}/${id}`
+        return `${DOWNLOAD_LINK}/${id}`;
     }
 
 }
