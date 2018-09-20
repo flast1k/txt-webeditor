@@ -12,9 +12,9 @@ import {
     MatToolbarModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { CovalentFileModule } from '@covalent/core/file';
 import { NgxMsgModule } from 'ngx-msg';
 import { RouterModule, Routes } from '@angular/router';
@@ -29,15 +29,29 @@ import { MenuComponent } from './menu/menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
-    {path: '', component: FileUploadComponent},
+    {path: '', pathMatch: 'full', redirectTo: 'create'},
+    {path: 'create', component: FileUploadComponent},
     {path: 'history', component: FileInfoListComponent},
+    {path: 'login', component: LoginComponent},
 ];
+
+@Injectable()
+export class XhrInterceptor implements HttpInterceptor {
+
+    intercept(req: HttpRequest<any>, next: HttpHandler) {
+        const xhr = req.clone({
+            headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+        });
+        return next.handle(xhr);
+    }
+}
 
 @NgModule({
     declarations: [
-        AppComponent, FileInfoListComponent, FileInfoListComponent, FileUploadComponent, FileUpdateComponent, MenuComponent, FooterComponent
+        AppComponent, FileInfoListComponent, FileInfoListComponent, FileUploadComponent, FileUpdateComponent, MenuComponent, FooterComponent, LoginComponent
     ],
     imports: [
         HttpClientModule,
@@ -62,7 +76,7 @@ const appRoutes: Routes = [
         ReactiveFormsModule,
         CodemirrorModule
     ],
-    providers: [FileInfoService, FileInfo, GitInfoService],
+    providers: [FileInfoService, FileInfo, GitInfoService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
     bootstrap: [AppComponent]
 })
 export class AppModule {

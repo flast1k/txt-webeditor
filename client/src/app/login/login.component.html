@@ -1,0 +1,25 @@
+<div [hidden]="!error">
+    Не удалось зайти. Попробуйте позже
+</div>
+<mat-card>
+    <form novalidate (ngSubmit)="login()">
+        <p>
+            <mat-form-field>
+                <input matInput #username="ngModel" placeholder="Имя пользователя" [(ngModel)]="credentials.username"
+                       name="username"
+                       required/>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input matInput #password="ngModel" placeholder="Пароль" [(ngModel)]="credentials.password"
+                       name="password"
+                       required/>
+            </mat-form-field>
+        </p>
+        <br>
+        <button #submit type="submit" [disabled]="username.invalid || password.invalid" color="primary"
+                mat-raised-button>Войти
+        </button>
+    </form>
+</mat-card>

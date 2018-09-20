@@ -12,6 +12,7 @@
         <spring.version>5.0.7.RELEASE</spring.version>
         <hibernate.version>5.3.3.Final</hibernate.version>
         <client.directory>../client</client.directory>
+        <spring.security.version>5.0.8.RELEASE</spring.security.version>
     </properties>
     <dependencies>
         <dependency>
@@ -84,6 +85,18 @@
             <groupId>com.github.albfernandez</groupId>
             <artifactId>juniversalchardet</artifactId>
             <version>2.1.0</version>
+        </dependency>
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
     </dependencies>
     <build>
