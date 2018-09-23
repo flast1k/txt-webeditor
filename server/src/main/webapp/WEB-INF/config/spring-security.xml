@@ -1,29 +1,45 @@
-<b:beans xmlns="http://www.springframework.org/schema/security"
-         xmlns:b="http://www.springframework.org/schema/beans"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+        xmlns="http://www.springframework.org/schema/security"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-4.2.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
-    <http auto-config="true">
-        <http-basic />
-        <intercept-url pattern="/" access="permitAll" />
-        <intercept-url pattern="/create" access="permitAll" />
-        <intercept-url pattern="/login" access="permitAll" />
-        <intercept-url pattern="/history" access="permitAll" />
-        <intercept-url pattern="/version" access="permitAll" />
-        <intercept-url pattern="/user" access="permitAll" />
-        <intercept-url pattern="/charsets" access="permitAll" />
-        <intercept-url pattern="/*.js" access="permitAll" />
-        <intercept-url pattern="/*.js.map" access="permitAll" />
-        <intercept-url pattern="/*.css" access="permitAll" />
-        <intercept-url pattern="/*.ico" access="permitAll" />
-        <intercept-url pattern="/**" access="authenticated"/>
+    <http use-expressions="true">
+        <intercept-url pattern="/" access="permitAll()"/>
+        <intercept-url pattern="/login" access="permitAll()"/>
+        <intercept-url pattern="/register" access="permitAll()"/>
+        <intercept-url pattern="/user/**" access="permitAll()"/>
+        <intercept-url pattern="/charsets" access="permitAll()"/>
+        <intercept-url pattern="/version" access="permitAll()"/>
+        <intercept-url pattern="/*.js" access="permitAll()"/>
+        <intercept-url pattern="/*.js.map" access="permitAll()"/>
+        <intercept-url pattern="/*.css" access="permitAll()"/>
+        <intercept-url pattern="/*.ico" access="permitAll()"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <logout logout-url="/logout"/>
+        <http-basic/>
+        <csrf disabled="true"/>
     </http>
+
+    <beans:bean id="passwordEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg value="11"/>
+    </beans:bean>
+
+    <beans:bean id="myUserDetailsService"
+                class="home.flast1k.system.service.CustomUserDetailsService"/>
+
     <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="test" password="test" authorities="ROLE_AUTHENTICATED" />
-            </user-service>
+        <authentication-provider
+                user-service-ref="myUserDetailsService">
+            <password-encoder ref="passwordEncoder">
+            </password-encoder>
         </authentication-provider>
     </authentication-manager>
-</b:beans>
+
+</beans:beans>

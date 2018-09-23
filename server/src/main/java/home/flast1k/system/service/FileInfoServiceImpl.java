@@ -21,10 +21,8 @@ public class FileInfoServiceImpl implements FileInfoService {
         return fileInfoRepository.findAll();
     }
 
-    @Override
     public FileInfo findById(int id) {
         return fileInfoRepository.findById(id);
     }
-
 
 }

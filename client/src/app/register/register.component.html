@@ -1,25 +1,25 @@
 <mat-card>
     <mat-card-title>
-        Страница входа
+        Страница регистрации
     </mat-card-title>
-    <form novalidate (ngSubmit)="login()">
+    <form novalidate (ngSubmit)="create()">
         <p>
             <mat-form-field>
-                <input matInput #username="ngModel" placeholder="Имя пользователя" [(ngModel)]="credentials.username"
+                <input matInput #username="ngModel" placeholder="Имя пользователя" [(ngModel)]="user.username"
                        name="username"
                        required/>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field>
-                <input matInput #password="ngModel" placeholder="Пароль" [(ngModel)]="credentials.password"
+                <input matInput #password="ngModel" placeholder="Пароль" [(ngModel)]="user.password"
                        name="password"
                        required/>
             </mat-form-field>
         </p>
         <br>
         <button #submit type="submit" [disabled]="username.invalid || password.invalid" color="primary"
-                mat-raised-button>Войти
+                mat-raised-button>Создать пользователя
         </button>
     </form>
 </mat-card>

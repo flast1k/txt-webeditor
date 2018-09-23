@@ -20,7 +20,7 @@ import { NgxMsgModule } from 'ngx-msg';
 import { RouterModule, Routes } from '@angular/router';
 import { FileInfoService } from './shared/file-info/file-info.service';
 import { GitInfoService } from './shared/git-info/git-info.service';
-import { FileInfo } from "./shared/file-info/file-info.model";
+import { FileInfo } from './shared/file-info/file-info.model';
 import { AppComponent } from './app.component';
 import { FileInfoListComponent } from './file-info-list/file-info-list.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
@@ -30,12 +30,14 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const appRoutes: Routes = [
-    {path: '', pathMatch: 'full', redirectTo: 'create'},
+    {path: '', pathMatch: 'full', redirectTo: 'login'},
     {path: 'create', component: FileUploadComponent},
     {path: 'history', component: FileInfoListComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'register', component: RegisterComponent},
 ];
 
 @Injectable()
@@ -51,7 +53,8 @@ export class XhrInterceptor implements HttpInterceptor {
 
 @NgModule({
     declarations: [
-        AppComponent, FileInfoListComponent, FileInfoListComponent, FileUploadComponent, FileUpdateComponent, MenuComponent, FooterComponent, LoginComponent
+        AppComponent, FileInfoListComponent, FileInfoListComponent, FileUploadComponent,
+        FileUpdateComponent, MenuComponent, FooterComponent, LoginComponent, RegisterComponent
     ],
     imports: [
         HttpClientModule,
@@ -76,7 +79,11 @@ export class XhrInterceptor implements HttpInterceptor {
         ReactiveFormsModule,
         CodemirrorModule
     ],
-    providers: [FileInfoService, FileInfo, GitInfoService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+    providers: [FileInfoService, FileInfo, GitInfoService, {
+        provide: HTTP_INTERCEPTORS,
+        useClass: XhrInterceptor,
+        multi: true
+    }],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="flast1k" id="2018-09-22--01-create-user-db">
+        <createTable tableName="account">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="username" type="VARCHAR(512)" >
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(512)">
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

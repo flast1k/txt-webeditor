@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
-import "rxjs-compat/add/operator/finally";
-import { AuthService } from "../shared/auth/auth.service";
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import 'rxjs-compat/add/operator/finally';
+import { AuthService } from '../shared/auth/auth.service';
+import { AppSettings } from '../shared/app-settings';
 
 @Component({
     selector: 'app-menu',
@@ -19,15 +20,17 @@ export class MenuComponent {
             map(result => result.matches)
         );
 
-    constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService, private http: HttpClient, private router: Router) {
-        this.authService.authenticate(undefined, undefined);
+    constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService,
+                private http: HttpClient, private router: Router) {
     }
 
     logout() {
-        this.http.post('logout', {}).finally(() => {
-            this.authService.authenticated = false;
-            this.router.navigateByUrl('/login');
-        }).subscribe();
+        this.authService.logOut();
+        this.router.navigateByUrl('/login');
+    }
+
+    isAuthenticated() {
+        return this.authService.authenticated;
     }
 
 }

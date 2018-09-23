@@ -8,10 +8,11 @@
             [opened]="!(isHandset$ | async)">
         <mat-toolbar color="primary">Меню</mat-toolbar>
         <mat-nav-list>
-            <a mat-list-item routerLink="/login">Войти</a>
-            <a mat-list-item (click)="logout()">Выйти</a>
-            <a mat-list-item routerLink="/">Загрузить файл</a>
-            <a mat-list-item routerLink="/history">История</a>
+            <a *ngIf="!isAuthenticated()" mat-list-item routerLink="/login">Войти</a>
+            <a *ngIf="!isAuthenticated()" mat-list-item routerLink="/register">Регистрация</a>
+            <a *ngIf="isAuthenticated()" mat-list-item (click)="logout()">Выйти</a>
+            <a *ngIf="isAuthenticated()" mat-list-item routerLink="/create">Загрузить файл</a>
+            <a *ngIf="isAuthenticated()" mat-list-item routerLink="/history">История</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../shared/auth/auth.service";
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { AuthService } from '../shared/auth/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'authService-login',
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.authService.authenticate(this.credentials, () => {
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/create');
         });
         return false;
     }
