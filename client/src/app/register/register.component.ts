@@ -11,7 +11,7 @@ import { AppSettings } from '../shared/app-settings';
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-    private user: User;
+    user: User;
 
     constructor(private authService: AuthService, private msgService: NgxMsgService, private router: Router) {
         this.user = new User();

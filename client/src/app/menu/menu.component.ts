@@ -26,11 +26,26 @@ export class MenuComponent {
 
     logout() {
         this.authService.logOut();
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl(AppSettings.LOGIN_URL);
     }
 
     isAuthenticated() {
         return this.authService.authenticated;
     }
 
+    getLoginUrl() {
+        return AppSettings.LOGIN_URL;
+    }
+
+    getRegisterUrl() {
+        return AppSettings.REGISTER_URL;
+    }
+
+    getCreateUrl() {
+        return AppSettings.CREATE_URL;
+    }
+
+    getHistoryUrl() {
+        return AppSettings.HISTORY_URL;
+    }
 }

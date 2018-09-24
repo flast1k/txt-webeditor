@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../user';
 import { AppSettings } from '../app-settings';
+import { TdFileService } from '@covalent/core';
+import { NgxMsgService } from 'ngx-msg';
 
 const LOGIN_URL = 'user/login';
 const CREATE_USER_URL = 'user/add';
@@ -16,18 +18,13 @@ export class AuthService {
     constructor(private http: HttpClient) {
     }
 
-    authenticate(credentials, callback) {
+    authenticate(credentials) {
         const headers = new HttpHeaders(credentials ? {
             'Authorization': 'Basic ' + btoa(credentials.username + ':' + credentials.password),
+            'X-Requested-With': 'XMLHttpRequest',
         } : {});
 
-        this.http.get(LOGIN_URL, {headers: headers}).subscribe(response => {
-            if (response !== null) {
-                this.authenticated = response.hasOwnProperty('name');
-                localStorage.setItem('currentUser', JSON.stringify(response));
-            }
-            return callback && callback();
-        });
+        return this.http.get(LOGIN_URL, {headers: headers});
     }
 
     logOut() {

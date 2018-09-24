@@ -31,13 +31,14 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AppSettings } from './shared/app-settings';
 
 const appRoutes: Routes = [
-    {path: '', pathMatch: 'full', redirectTo: 'login'},
-    {path: 'create', component: FileUploadComponent},
-    {path: 'history', component: FileInfoListComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
+    {path: '', pathMatch: 'full', redirectTo: AppSettings.LOGIN_URL},
+    {path: AppSettings.CREATE_URL, component: FileUploadComponent},
+    {path: AppSettings.HISTORY_URL, component: FileInfoListComponent},
+    {path: AppSettings.LOGIN_URL, component: LoginComponent},
+    {path: AppSettings.REGISTER_URL, component: RegisterComponent},
 ];
 
 @Injectable()

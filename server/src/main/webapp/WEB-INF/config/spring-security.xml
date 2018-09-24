@@ -22,7 +22,7 @@
         <intercept-url pattern="/*.ico" access="permitAll()"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <logout logout-url="/logout"/>
-        <http-basic/>
+        <http-basic entry-point-ref="authenticationEntryPoint"/>
         <csrf disabled="true"/>
     </http>
 
@@ -33,7 +33,9 @@
 
     <beans:bean id="myUserDetailsService"
                 class="home.flast1k.system.service.CustomUserDetailsService"/>
-
+    <beans:bean id="authenticationEntryPoint"
+          class="home.flast1k.system.helper.CustomEntryPoint">
+    </beans:bean>
     <authentication-manager>
         <authentication-provider
                 user-service-ref="myUserDetailsService">
