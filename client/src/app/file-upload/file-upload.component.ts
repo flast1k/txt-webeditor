@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IUploadOptions, TdFileService } from '@covalent/core/file';
 import { NgxMsgLevel, NgxMsgService } from 'ngx-msg';
-import { FileInfo } from '../shared/file-info/file-info.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from "@angular/router";
+import { AppSettings } from "../shared/app-settings";
 
 const UPLOAD_URL = 'files/upload';
-const NEW_FILE_NAME = 'Newfile.txt';
 
 @Component({
     selector: 'app-file-upload',
@@ -16,12 +16,10 @@ const NEW_FILE_NAME = 'Newfile.txt';
 export class FileUploadComponent implements OnInit {
     file: File;
     disabled: boolean;
-    fileInfo: FileInfo;
-    selectedCharset: string;
     firstFormGroup: FormGroup;
     formData: FormData;
 
-    constructor(private fileUploadService: TdFileService, private msgService: NgxMsgService, private _formBuilder: FormBuilder) {
+    constructor(private fileUploadService: TdFileService, private msgService: NgxMsgService, private _formBuilder: FormBuilder, private router: Router) {
         this.disabled = false;
     }
 
@@ -37,12 +35,12 @@ export class FileUploadComponent implements OnInit {
         this.fileUploadService.upload(options).subscribe(success => {
                 this.disabled = false;
                 this.msgService.message({level: NgxMsgLevel.Success, text: 'Успешно загружено'});
-                this.fileInfo = JSON.parse(success);
+                localStorage.setItem(AppSettings.CURRENT_FILEINFO, success);
+                this.router.navigateByUrl(AppSettings.EDIT_URL);
             },
             error => {
                 this.disabled = false;
-                this.msgService.message({level: NgxMsgLevel.Error, text: 'Ошибка при загрузке: ' + error});
-                this.fileInfo = undefined;
+                this.msgService.message({level: NgxMsgLevel.Error, text: 'Ошибка при загрузке: ' + error.statusText});
             });
     }
 
@@ -50,12 +48,6 @@ export class FileUploadComponent implements OnInit {
         this.firstFormGroup = this._formBuilder.group({
             selectCtrl: ['', Validators.required]
         });
-    }
-
-    createNewFileInfo() {
-        this.fileInfo = new FileInfo();
-        this.fileInfo.name = NEW_FILE_NAME;
-        this.fileInfo.charset = this.selectedCharset;
     }
 
 }

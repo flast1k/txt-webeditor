@@ -21,14 +21,19 @@ public class FileInfo {
     @Column(name = "binary_source")
     private byte[] binarySource;
     private String charset;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User author;
 
     public FileInfo() {
     }
 
-    public FileInfo(String name, String content, String charset) {
+    public FileInfo(String name, String content, String charset, User user) {
         this.name = name;
         this.content = content;
         this.charset = charset;
+        this.author = user;
         this.updateBinarySource();
     }
 
@@ -79,6 +84,14 @@ public class FileInfo {
         this.binarySource = this.content.getBytes(Charset.forName(charset));
     }
 
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
     @Override
     public String toString() {
         return "FileInfo{" +
@@ -87,6 +100,7 @@ public class FileInfo {
                 ", content='" + content + '\'' +
                 ", binarySource=" + Arrays.toString(binarySource) +
                 ", charset='" + charset + '\'' +
+                ", author=" + author +
                 '}';
     }
 }

@@ -22,14 +22,11 @@ export class LoginComponent implements OnInit {
                 if (response !== null) {
                     this.authService.authenticated = response.hasOwnProperty('name');
                     localStorage.setItem('currentUser', JSON.stringify(response));
-                    this.msgService.message({level: NgxMsgLevel.Success, text: 'Успешно загружено'});
-                    this.router.navigateByUrl(AppSettings.CREATE_URL);
+                    this.msgService.message({level: NgxMsgLevel.Success, text: 'Вы успешно вошли в систему'});
+                    this.router.navigateByUrl(AppSettings.UPLOAD_URL);
                 }
             },
             error => {
-                if (error.status === 401) {
-                    let i = 0;
-                }
                 this.authService.authenticated = false;
                 this.msgService.message({level: NgxMsgLevel.Error, text: 'Ошибка при входе: ' + error.statusText});
             });

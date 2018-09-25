@@ -1,6 +1,7 @@
 package home.flast1k.system.service;
 
 import home.flast1k.system.model.FileInfo;
+import home.flast1k.system.model.User;
 import home.flast1k.system.repository.FileInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class FileInfoServiceImpl implements FileInfoService {
 
     public FileInfo findById(int id) {
         return fileInfoRepository.findById(id);
+    }
+
+    public List<FileInfo> findByAuthor(User user) {
+        return fileInfoRepository.findByAuthor(user);
     }
 
 }

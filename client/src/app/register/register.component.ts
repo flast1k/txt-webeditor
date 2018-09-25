@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
                 this.router.navigateByUrl(AppSettings.LOGIN_URL);
             },
             error => {
-                this.msgService.message({level: NgxMsgLevel.Error, text: 'Ошибка при создании пользователя: ' + error});
+                this.msgService.message({level: NgxMsgLevel.Error, text: 'Ошибка при создании пользователя: ' + error.error.errorMessage});
             });
     }
 

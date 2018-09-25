@@ -8,21 +8,31 @@
             [opened]="!(isHandset$ | async)">
         <mat-toolbar color="primary">Меню</mat-toolbar>
         <mat-nav-list>
-            <a *ngIf="!isAuthenticated()" mat-list-item [routerLink]="getLoginUrl()">Войти</a>
-            <a *ngIf="!isAuthenticated()" mat-list-item [routerLink]="getRegisterUrl()">Регистрация</a>
-            <a *ngIf="isAuthenticated()" mat-list-item (click)="logout()">Выйти</a>
-            <a *ngIf="isAuthenticated()" mat-list-item [routerLink]="getCreateUrl()">Загрузить файл</a>
-            <a *ngIf="isAuthenticated()" mat-list-item [routerLink]="getHistoryUrl()">История</a>
+            <a *ngIf="!isAuthenticated()" mat-list-item [routerLink]="getLoginUrl()"><mat-icon>person</mat-icon>Войти
+            </a>
+            <a *ngIf="!isAuthenticated()" mat-list-item [routerLink]="getRegisterUrl()"><mat-icon>person_add</mat-icon>
+                Регистрация
+            </a>
+            <a *ngIf="isAuthenticated()" mat-list-item (click)="logout()"><mat-icon>person_outline</mat-icon>Выйти
+            </a>
+            <a *ngIf="isAuthenticated()" mat-list-item [routerLink]="getUploadUrl()"><mat-icon>cloud upload
+                icon</mat-icon>Загрузить файл
+            </a>
+            <a *ngIf="isAuthenticated()" mat-list-item [routerLink]="getNewUrl()"><mat-icon>note_add</mat-icon>Создать
+                новый файл
+            </a>
+            <a *ngIf="isAuthenticated()" mat-list-item [routerLink]="getHistoryUrl()"><mat-icon>folder</mat-icon>Мои
+                файлы
+            </a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
             <button
                     type="button"
-                    aria-label="Toggle sidenav"
+                    aria-label="Меню"
                     mat-icon-button
-                    (click)="drawer.toggle()"
-                    *ngIf="isHandset$ | async">
+                    (click)="drawer.toggle()">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
             <span>Редактор файлов</span>

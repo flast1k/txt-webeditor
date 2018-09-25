@@ -32,13 +32,16 @@ import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AppSettings } from './shared/app-settings';
+import { FileCreateComponent } from './file-create/file-create.component';
 
 const appRoutes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: AppSettings.LOGIN_URL},
-    {path: AppSettings.CREATE_URL, component: FileUploadComponent},
+    {path: AppSettings.UPLOAD_URL, component: FileUploadComponent},
     {path: AppSettings.HISTORY_URL, component: FileInfoListComponent},
     {path: AppSettings.LOGIN_URL, component: LoginComponent},
     {path: AppSettings.REGISTER_URL, component: RegisterComponent},
+    {path: AppSettings.EDIT_URL, component: FileUpdateComponent},
+    {path: AppSettings.NEW_URL, component: FileCreateComponent},
 ];
 
 @Injectable()
@@ -55,7 +58,7 @@ export class XhrInterceptor implements HttpInterceptor {
 @NgModule({
     declarations: [
         AppComponent, FileInfoListComponent, FileInfoListComponent, FileUploadComponent,
-        FileUpdateComponent, MenuComponent, FooterComponent, LoginComponent, RegisterComponent
+        FileUpdateComponent, MenuComponent, FooterComponent, LoginComponent, RegisterComponent, FileCreateComponent
     ],
     imports: [
         HttpClientModule,

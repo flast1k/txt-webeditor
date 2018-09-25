@@ -41,11 +41,15 @@ export class MenuComponent {
         return AppSettings.REGISTER_URL;
     }
 
-    getCreateUrl() {
-        return AppSettings.CREATE_URL;
+    getUploadUrl() {
+        return AppSettings.UPLOAD_URL;
     }
 
     getHistoryUrl() {
         return AppSettings.HISTORY_URL;
+    }
+
+    getNewUrl() {
+        return AppSettings.NEW_URL;
     }
 }

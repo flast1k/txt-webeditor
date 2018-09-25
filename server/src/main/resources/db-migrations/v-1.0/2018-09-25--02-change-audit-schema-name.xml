@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="flast1k" id="2018-09-25--02-change-audit-schema-name">
+        <sql>
+            CREATE SCHEMA AUDIT IF NOT EXISTS
+        </sql>
+        <sql>
+            CREATE TABLE AUDIT.AUDIT AS SELECT FROM THE PUBLIC.AUDIT
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

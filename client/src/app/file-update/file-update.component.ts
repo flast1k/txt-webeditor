@@ -1,18 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FileInfo } from '../shared/file-info/file-info.model';
 import { FileInfoService } from '../shared/file-info/file-info.service';
 import { NgxMsgLevel, NgxMsgService } from 'ngx-msg';
 import { saveAs } from 'file-saver/FileSaver';
 import { Charset } from '../shared/charset/charset';
 import { CharsetService } from '../shared/charset/charset.service';
+import { AppSettings } from "../shared/app-settings";
 
 @Component({
     selector: 'app-file-update',
     templateUrl: './file-update.component.html',
     styleUrls: ['./file-update.component.css']
 })
-export class FileUpdateComponent {
-    @Input()
+export class FileUpdateComponent implements OnInit, OnDestroy{
+    // @Input()
     fileInfo: FileInfo;
     charsets: Charset[];
 
@@ -63,4 +64,13 @@ export class FileUpdateComponent {
             }
         );
     }
+
+    ngOnInit(): void {
+        this.fileInfo = JSON.parse(localStorage.getItem(AppSettings.CURRENT_FILEINFO));
+    }
+
+    ngOnDestroy(): void {
+        localStorage.removeItem(AppSettings.CURRENT_FILEINFO);
+    }
+
 }
