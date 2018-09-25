@@ -1,5 +1,6 @@
 package home.flast1k.system.controller;
 
+import home.flast1k.system.exception.CharsetDetectionException;
 import home.flast1k.system.exception.FileNotFoundException;
 import home.flast1k.system.helper.AuditFactory;
 import home.flast1k.system.helper.Utilities;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,14 +40,19 @@ public class FileController {
     private UserService userService;
 
     @PostMapping(value = "/upload")
-    public @ResponseBody FileInfo upload(MultipartHttpServletRequest request) throws FileNotFoundException, IOException {
+    public @ResponseBody FileInfo upload(MultipartHttpServletRequest request) throws FileNotFoundException, IOException, CharsetDetectionException {
         Iterator<String> itr = request.getFileNames();
         if (!itr.hasNext()) {
+            AuditFactory.createAuditForExceptionAction("File not found in request");
             throw new FileNotFoundException();
         }
         User user = getCurrentUser(request);
         MultipartFile mpf = request.getFile(itr.next());
         Charset charset = Utilities.detectCharset(mpf.getInputStream());
+        if (charset == null){
+            AuditFactory.createAuditForExceptionAction("Charset not defined");
+            throw new CharsetDetectionException();
+        }
         String originalFilename = mpf.getOriginalFilename();
         String content = new String(mpf.getBytes(), charset);
         FileInfo fileInfo = fileInfoService.save(new FileInfo(originalFilename, content, charset.toString(), user));

@@ -15,6 +15,10 @@ public class Utilities {
             detector.handleData(buf, 0, nread);
         }
         detector.dataEnd();
-        return Charset.forName(detector.getDetectedCharset());
+        String charsetStr = detector.getDetectedCharset();
+        if (charsetStr != null) {
+            return Charset.forName(charsetStr);
+        }
+        return null;
     }
 }

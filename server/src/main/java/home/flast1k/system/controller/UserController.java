@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<?> createUser(@RequestBody User newUser) {
         if (userService.findByUsername(newUser.getUsername()) != null) {
-            String errorMessage = String.format("User with username %s already exist", newUser.getUsername());
+            String errorMessage = String.format("User with username %s already exists", newUser.getUsername());
             CustomErrorType customErrorType = new CustomErrorType(errorMessage);
             return new ResponseEntity(customErrorType, HttpStatus.CONFLICT);
         }

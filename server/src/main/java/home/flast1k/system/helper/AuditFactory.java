@@ -21,4 +21,9 @@ public class AuditFactory {
         String data = "Custom file was created and downloaded without saving in database";
         return new Audit(data, new Date());
     }
+
+    public static Audit createAuditForExceptionAction(String errorMessage) {
+        String data = String.format("ERROR: ", errorMessage);
+        return new Audit(data, new Date());
+    }
 }

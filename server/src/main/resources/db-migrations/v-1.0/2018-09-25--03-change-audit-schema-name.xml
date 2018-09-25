@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="flast1k" id="2018-09-25--03-change-audit-schema-name">
+        <createTable tableName="audit" schemaName="audit">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="data" type="VARCHAR(512)">
+            </column>
+            <column name="event_date" type="TIMESTAMP">
+            </column>
+        </createTable>
+        <update tableName="audit" schemaName="audit">
+            <column name="data" valueComputed="(select pa.data from public.audit pa)"/>
+            <column name="event_date" valueComputed="(select pa.event_date from public.audit pa)"/>
+        </update>
+        <dropTable tableName="audit" schemaName="public"/>
+        <rollback>
+            <rollback changeSetId="2018-09-06--01-create-audit-db" changeSetAuthor="flast1k"/>
+            <update tableName="audit" schemaName="public">
+                <column name="data" valueComputed="(select aa.data from audit.audit aa)"/>
+                <column name="event_date" valueComputed="(select aa.event_date from audit.audit aa)"/>
+            </update>
+            <dropTable tableName="audit" schemaName="audit"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

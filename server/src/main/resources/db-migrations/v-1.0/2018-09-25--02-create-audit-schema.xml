@@ -5,13 +5,13 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet author="flast1k" id="2018-09-25--02-change-audit-schema-name">
+    <changeSet author="flast1k" id="2018-09-25--02-create-audit-schema">
         <sql>
-            CREATE SCHEMA AUDIT IF NOT EXISTS
+            CREATE SCHEMA IF NOT EXISTS AUDIT
         </sql>
-        <sql>
-            CREATE TABLE AUDIT.AUDIT AS SELECT FROM THE PUBLIC.AUDIT
-        </sql>
+        <rollback>
+            DROP SCHEMA AUDIT
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

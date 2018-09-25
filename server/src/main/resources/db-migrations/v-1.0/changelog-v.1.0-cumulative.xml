@@ -10,5 +10,6 @@
     <include file="2018-09-06--01-create-audit-db.xml" relativeToChangelogFile="true"/>
     <include file="2018-09-22--01-create-user-db.xml" relativeToChangelogFile="true"/>
     <include file="2018-09-25--01-add-user_id-column-to-fileinfo.xml" relativeToChangelogFile="true"/>
-    <include file="2018-09-25--02-change-audit-schema-name.xml" relativeToChangelogFile="true"/>
+    <include file="2018-09-25--02-create-audit-schema.xml" relativeToChangelogFile="true"/>
+    <include file="2018-09-25--03-change-audit-schema-name.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
