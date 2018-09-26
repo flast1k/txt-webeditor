@@ -15,17 +15,15 @@
             <column name="event_date" type="TIMESTAMP">
             </column>
         </createTable>
-        <update tableName="audit" schemaName="audit">
-            <column name="data" valueComputed="(select pa.data from public.audit pa)"/>
-            <column name="event_date" valueComputed="(select pa.event_date from public.audit pa)"/>
-        </update>
+       <sql>
+           INSERT INTO AUDIT.AUDIT (data, event_date) SELECT data, event_date FROM PUBLIC.AUDIT
+       </sql>
         <dropTable tableName="audit" schemaName="public"/>
         <rollback>
             <rollback changeSetId="2018-09-06--01-create-audit-db" changeSetAuthor="flast1k"/>
-            <update tableName="audit" schemaName="public">
-                <column name="data" valueComputed="(select aa.data from audit.audit aa)"/>
-                <column name="event_date" valueComputed="(select aa.event_date from audit.audit aa)"/>
-            </update>
+            <sql>
+                INSERT INTO PUBLIC.AUDIT (data, event_date) SELECT data, event_date FROM AUDIT.AUDIT
+            </sql>
             <dropTable tableName="audit" schemaName="audit"/>
         </rollback>
     </changeSet>

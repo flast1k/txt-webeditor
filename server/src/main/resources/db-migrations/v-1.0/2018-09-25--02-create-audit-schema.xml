@@ -10,7 +10,9 @@
             CREATE SCHEMA IF NOT EXISTS AUDIT
         </sql>
         <rollback>
-            DROP SCHEMA AUDIT
+            <sql>
+                DROP SCHEMA AUDIT
+            </sql>
         </rollback>
     </changeSet>
 

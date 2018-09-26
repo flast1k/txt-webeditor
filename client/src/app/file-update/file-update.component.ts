@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FileInfo } from '../shared/file-info/file-info.model';
 import { FileInfoService } from '../shared/file-info/file-info.service';
 import { NgxMsgLevel, NgxMsgService } from 'ngx-msg';
@@ -13,7 +13,6 @@ import { AppSettings } from "../shared/app-settings";
     styleUrls: ['./file-update.component.css']
 })
 export class FileUpdateComponent implements OnInit, OnDestroy{
-    // @Input()
     fileInfo: FileInfo;
     charsets: Charset[];
 
@@ -37,7 +36,7 @@ export class FileUpdateComponent implements OnInit, OnDestroy{
                 this.charsets = data;
             },
             error => {
-                this.msgService.message({level: NgxMsgLevel.Error, text: 'Ошибка при загрузке кодировок: ' + error});
+                this.msgService.message({level: NgxMsgLevel.Error, text: 'Ошибка при загрузке кодировок: ' + error.statusText});
             });
     }
 
@@ -60,7 +59,7 @@ export class FileUpdateComponent implements OnInit, OnDestroy{
                 saveAs(success.body, filename);
             },
             error => {
-                this.msgService.message({level: NgxMsgLevel.Error, text: 'Ошибка при загрузке: ' + error});
+                this.msgService.message({level: NgxMsgLevel.Error, text: 'Ошибка при загрузке: ' + error.statusText});
             }
         );
     }

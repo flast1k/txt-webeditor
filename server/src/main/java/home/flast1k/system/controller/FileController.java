@@ -1,7 +1,9 @@
 package home.flast1k.system.controller;
 
-import home.flast1k.system.exception.CharsetDetectionException;
+import home.flast1k.system.exception.CharsetNotDefinedException;
+import home.flast1k.system.exception.EntityNotFoundException;
 import home.flast1k.system.exception.FileNotFoundException;
+import home.flast1k.system.exception.UserAccessDeniedException;
 import home.flast1k.system.helper.AuditFactory;
 import home.flast1k.system.helper.Utilities;
 import home.flast1k.system.model.FileInfo;
@@ -40,18 +42,18 @@ public class FileController {
     private UserService userService;
 
     @PostMapping(value = "/upload")
-    public @ResponseBody FileInfo upload(MultipartHttpServletRequest request) throws FileNotFoundException, IOException, CharsetDetectionException {
+    public @ResponseBody FileInfo upload(MultipartHttpServletRequest request) throws FileNotFoundException, IOException, CharsetNotDefinedException {
         Iterator<String> itr = request.getFileNames();
         if (!itr.hasNext()) {
-            AuditFactory.createAuditForExceptionAction("File not found in request");
+            auditService.save(AuditFactory.createAuditForException("File not found in request"));
             throw new FileNotFoundException();
         }
         User user = getCurrentUser(request);
         MultipartFile mpf = request.getFile(itr.next());
         Charset charset = Utilities.detectCharset(mpf.getInputStream());
-        if (charset == null){
-            AuditFactory.createAuditForExceptionAction("Charset not defined");
-            throw new CharsetDetectionException();
+        if (charset == null) {
+            auditService.save(AuditFactory.createAuditForException("Charset not defined"));
+            throw new CharsetNotDefinedException();
         }
         String originalFilename = mpf.getOriginalFilename();
         String content = new String(mpf.getBytes(), charset);
@@ -61,9 +63,21 @@ public class FileController {
     }
 
     @PostMapping(value = "/update")
-    public @ResponseBody FileInfo update(@RequestBody FileInfo fileInfo, HttpServletRequest request) {
+    public @ResponseBody FileInfo update(@RequestBody FileInfo fileInfo, HttpServletRequest request) throws UserAccessDeniedException, EntityNotFoundException {
+        User user = getCurrentUser(request);
+        int id = fileInfo.getId();
+        if (id != 0) {
+            FileInfo dbFileInfo = fileInfoService.findById(id);
+            if (dbFileInfo == null) {
+                auditService.save(AuditFactory.createAuditForException(String.format("FileInfo with id = %s not found", fileInfo.getId())));
+                throw new EntityNotFoundException();
+            } else if (!dbFileInfo.getAuthor().getUsername().equals(user.getUsername())) {
+                auditService.save(AuditFactory.createAuditForException(String.format("User %s has't rights to modify the file with id = %s", user.getUsername(), fileInfo.getId())));
+                throw new UserAccessDeniedException();
+            }
+        }
         fileInfo.updateBinarySource();
-        fileInfo.setAuthor(getCurrentUser(request));
+        fileInfo.setAuthor(user);
         FileInfo updatedFileInfo = fileInfoService.save(fileInfo);
         auditService.save(AuditFactory.createAuditForUpdateAction(updatedFileInfo));
         return fileInfo;
@@ -98,9 +112,9 @@ public class FileController {
                 .body(resource);
     }
 
-    private User getCurrentUser(HttpServletRequest request){
+    private User getCurrentUser(HttpServletRequest request) {
         String userName = request.getUserPrincipal().getName();
-       return userService.findByUsername(userName);
+        return userService.findByUsername(userName);
     }
 
 }

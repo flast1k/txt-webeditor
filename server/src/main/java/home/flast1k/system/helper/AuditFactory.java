@@ -22,8 +22,8 @@ public class AuditFactory {
         return new Audit(data, new Date());
     }
 
-    public static Audit createAuditForExceptionAction(String errorMessage) {
-        String data = String.format("ERROR: ", errorMessage);
+    public static Audit createAuditForException(String errorMessage) {
+        String data = String.format("ERROR: %s", errorMessage);
         return new Audit(data, new Date());
     }
 }

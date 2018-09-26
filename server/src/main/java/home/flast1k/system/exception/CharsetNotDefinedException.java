@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY, reason = "Charset not defined")
-public class CharsetDetectionException extends Exception {
-    public CharsetDetectionException() {
+public class CharsetNotDefinedException extends Exception {
+    public CharsetNotDefinedException() {
         super();
     }
 }
